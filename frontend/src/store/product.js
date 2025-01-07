@@ -50,4 +50,28 @@ export const useProductStore = create((setter) => ({
     }));
     return { success: true, message: data.message };
   },
+
+  updateProduct: async (productId, updatedProduct) => {
+    const response = await fetch(`/api/products/${productId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedProduct),
+    });
+    const data = await response.json();
+
+    if (!data.success) {
+      return { success: false, message: data.message };
+    }
+
+    // state update; map over the products array and update the product with the matching ID
+    // this updates the ui immediately
+    setter((state) => ({
+      products: state.products.map((product) =>
+        product._id === productId ? data.data : product
+      ),
+    }));
+    return { success: true, message: data.message };
+  },
 }));
