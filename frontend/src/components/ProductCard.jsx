@@ -17,7 +17,6 @@ import { useProductStore } from "@/store/product";
 import { Toaster, toaster } from "@/components/ui/toaster";
 import {
   DialogActionTrigger,
-  DialogBackdrop,
   DialogBody,
   DialogCloseTrigger,
   DialogContent,
@@ -58,7 +57,7 @@ const ProductCard = ({ product }) => {
     if (success) {
       toaster.create({
         title: "Success",
-        description: message,
+        description: "Product updated successfully",
         type: "success",
         duration: 5000,
       });
@@ -104,26 +103,6 @@ const ProductCard = ({ product }) => {
           >
             ${product.price}
           </Text>
-
-          {/* <HStack gap={2}>
-            <IconButton
-              aria-label="Edit icon"
-              variant={"solid"}
-              size={"md"}
-              colorPalette={"blue"}
-            >
-              <MdEdit />
-            </IconButton>
-            <IconButton
-              aria-label="Delete icon"
-              variant={"solid"}
-              size={"md"}
-              colorPalette={"red"}
-              onClick={() => handleDeleteProduct(product._id)}
-            >
-              <MdDelete />
-            </IconButton>
-          </HStack> */}
         </Box>
 
         <Box paddingBottom={4} paddingLeft={4} paddingRight={4}>
