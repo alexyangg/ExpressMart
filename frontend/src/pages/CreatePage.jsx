@@ -1,4 +1,4 @@
-import { useColorMode, useColorModeValue } from "@/components/ui/color-mode";
+import { useColorModeValue } from "@/components/ui/color-mode";
 import { Toaster, toaster } from "@/components/ui/toaster";
 import { useProductStore } from "@/store/product";
 import {
@@ -12,13 +12,11 @@ import {
 import React, { useState } from "react";
 
 const CreatePage = () => {
-  const { colorMode } = useColorMode();
   const [newProduct, setNewProduct] = useState({
     name: "",
     price: "",
     image: "",
   });
-  // const toast = useToast();
 
   const { createProduct } = useProductStore();
 
@@ -40,8 +38,6 @@ const CreatePage = () => {
       });
     }
     setNewProduct({ name: "", price: "", image: "" }); // clear the input fields
-    // console.log("Success: ", success);
-    // console.log("message: ", message);
   };
 
   return (
@@ -90,12 +86,7 @@ const CreatePage = () => {
               }
             />
             <Button
-              colorScheme="green"
-              backgroundColor={"green.500"}
-              _hover={{
-                backgroundColor:
-                  colorMode === "light" ? "green.600" : "green.400",
-              }}
+              colorPalette={"green"}
               onClick={handleAddProduct}
               width={"full"}
             >

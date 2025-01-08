@@ -37,7 +37,7 @@ const HomePage = () => {
           </Text>
         </Box>
 
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={10} width={"full"}>
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={7} width={"full"}>
           {products.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
