@@ -4,7 +4,7 @@ import Product from "../models/Product.js";
 export const getProducts = async (req, res) => {
   try {
     const products = await Product.find({});
-    res.status(200).json({ success: true, products });
+    res.status(200).json({ success: true, data: products });
   } catch (error) {
     console.error("Error fetching products: ", error.message);
     res.status(500).json({ success: false, message: "Internal server error" });
@@ -24,7 +24,7 @@ export const createProduct = async (req, res) => {
 
   try {
     await newProduct.save(); // save the product to the database
-    res.status(201).json({ success: true, product: newProduct }); // code 201 means created
+    res.status(201).json({ success: true, data: newProduct }); // code 201 means created
   } catch (error) {
     console.error("Error creating the product: ", error.message);
     res.status(500).json({ success: false, message: "Internal server error" });
@@ -45,7 +45,7 @@ export const updateProduct = async (req, res) => {
     const updatedProduct = await Product.findByIdAndUpdate(id, product, {
       new: true,
     });
-    res.status(200).json({ success: true, product: updatedProduct });
+    res.status(200).json({ success: true, data: updatedProduct }); // data is the field name in the JSON response
   } catch (error) {
     console.error("Error updating the product: ", error.message);
     res.status(500).json({ success: false, message: "Server error" });
