@@ -10,7 +10,7 @@ const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
-    <Container maxWidth={"1140px"} paddingX={4}>
+    <Container maxWidth={"1140px"} paddingX={4} paddingY={4}>
       <Flex
         height={16}
         alignItems={"center"}
@@ -24,7 +24,7 @@ const Navbar = () => {
           background={"transparent"}
         >
           <Text
-            fontSize={{ base: "22px", sm: "28px" }}
+            fontSize={{ base: "36px", sm: "42px" }}
             fontWeight={"bold"}
             textAlign={"center"}
             backgroundGradient={"to-r"}
@@ -35,7 +35,7 @@ const Navbar = () => {
           </Text>
         </Box>
 
-        <HStack alignItems={"center"}>
+        <HStack alignItems={"center"} marginLeft={{ base: 0, sm: 4 }}>
           <Link to={"create"}>
             <Button>
               <FaPlusSquare fontSize={20} />
