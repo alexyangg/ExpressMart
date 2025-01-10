@@ -31,7 +31,7 @@ const Navbar = () => {
             backgroundClip={"text"}
             color={"transparent"}
           >
-            <Link to={"/"}>Product Store 🛒</Link>
+            <Link to={"/"}>ExpressMart 🛒</Link>
           </Text>
         </Box>
 
