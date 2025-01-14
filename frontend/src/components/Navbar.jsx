@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useColorMode } from "./ui/color-mode";
 import { IoMoon } from "react-icons/io5";
 import { LuSun } from "react-icons/lu";
+import { FaShop } from "react-icons/fa6";
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -36,6 +37,11 @@ const Navbar = () => {
         </Box>
 
         <HStack alignItems={"center"} marginLeft={{ base: 0, sm: 4 }}>
+          <Link to={"products"}>
+            <Button>
+              <FaShop fontSize={20} />
+            </Button>
+          </Link>
           <Link to={"create"}>
             <Button>
               <FaPlusSquare fontSize={20} />

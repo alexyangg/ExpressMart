@@ -1,5 +1,13 @@
 import { useColorMode } from "@/components/ui/color-mode";
-import { Box, Container, VStack, Text, SimpleGrid } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  VStack,
+  Text,
+  SimpleGrid,
+  Button,
+  HStack,
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import React, { useEffect } from "react";
 import { useProductStore } from "@/store/product";
@@ -16,7 +24,51 @@ const HomePage = () => {
   console.log("products", products);
 
   return (
-    <Container maxWidth={"container.xl"} paddingY={12}>
+    <Container
+      display={"flex"}
+      flex-direction={{ base: "row", sm: "column" }}
+      justifyContent={"center"}
+      alignItems={"center"}
+      maxWidth={"container.xl"}
+      paddingY={12}
+      height={"75vh"}
+      overflow={"hidden"}
+      position={"relative"}
+    >
+      {/* Gradient Blob Background */}
+      {/* <div
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "400px",
+          height: "400px",
+          background: "linear-gradient(45deg,rgb(9, 185, 9), #86d3a2)",
+          borderRadius: "50%",
+          filter: "blur(8rem)",
+          opacity: 0.5,
+          zIndex: -1,
+        }}
+      /> */}
+
+      <Box
+        position="absolute"
+        top="50%"
+        left="50%"
+        transform="translate(-50%, -50%)"
+        width="200px"
+        height="200px"
+        background="linear-gradient(45deg, rgb(9, 185, 9), #86d3a2)"
+        borderRadius="50%"
+        filter="blur(8rem)"
+        opacity={0.4}
+        zIndex={-1}
+        minHeight={{ base: "5%", sm: "50%" }}
+        maxHeight={{ base: "20%", sm: "50%" }}
+        minWidth="75%"
+      />
+
       <VStack>
         <Box
           bgGradient="to-r"
@@ -25,44 +77,54 @@ const HomePage = () => {
           background={"transparent"}
         >
           <Text
-            fontSize={{ base: "28px", sm: "34px" }}
+            fontSize={{ base: "50px", sm: "70px" }}
             fontWeight={"bold"}
             textAlign={"center"}
             backgroundGradient={"to-r"}
             backgroundClip={"text"}
             color={"transparent"}
             marginBottom={4}
+            lineHeight={"100%"}
           >
-            Current Products 🏷️
+            Welcome to ExpressMart!
           </Text>
         </Box>
+        <Container
+          display={"flex"}
+          flex-direction={{ base: "row", sm: "column" }}
+          justifyContent={"center"}
+          alignItems={"center"}
+          padding={10}
+          gap={3}
+        >
+          <Link to="/products">
+            <Button size={{ base: "md", sm: "xl" }} borderRadius={"full"}>
+              View Current Products
+            </Button>
+          </Link>
 
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={7} width={"full"}>
-          {products.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))}
-        </SimpleGrid>
-
-        {/* If the number of products is 0, then display the text */}
-        {products.length === 0 && (
-          <Text
-            fontSize={{ base: "14px", sm: "20px" }}
-            fontWeight={"bold"}
-            textAlign={"center"}
-            color="gray.200"
+          <Link to="/create">
+            <Button
+              size={{ base: "md", sm: "xl" }}
+              borderRadius={"full"}
+              colorPalette="green"
+            >
+              Create a Product
+            </Button>
+          </Link>
+        </Container>
+        {/* <HStack padding={10} gap={3} overflow={"auto"}>
+          <Button size={{ base: "md", sm: "xl" }} borderRadius={"full"}>
+            <Link to={"/products"}>View Current Products</Link>
+          </Button>
+          <Button
+            size={{ base: "md", sm: "xl" }}
+            borderRadius={"full"}
+            colorPalette={"green"}
           >
-            No products found 🔎{" "}
-            <Link to={"/create"}>
-              <Text
-                as={"span"}
-                color={"green.500"}
-                _hover={{ textDecoration: "underline" }}
-              >
-                Create a product
-              </Text>
-            </Link>
-          </Text>
-        )}
+            <Link to={"/create"}>Create a Product</Link>
+          </Button>
+        </HStack> */}
       </VStack>
     </Container>
   );
