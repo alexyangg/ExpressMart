@@ -103,6 +103,29 @@ const ProductCard = ({ product }) => {
           >
             ${product.price}
           </Text>
+
+          <Text>
+            Created at:{" "}
+            {new Date(product.createdAt).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: true,
+            })}
+          </Text>
+          <Text>
+            Updated at:{" "}
+            {new Date(product.updatedAt).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: true,
+            })}
+          </Text>
         </Box>
 
         <Box paddingBottom={4} paddingLeft={4} paddingRight={4}>
