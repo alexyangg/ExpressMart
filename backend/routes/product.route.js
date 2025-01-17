@@ -4,6 +4,7 @@ import {
   deleteProduct,
   getProducts,
   updateProduct,
+  getProductById,
 } from "../controllers/product.controller.js";
 
 const router = express.Router();
@@ -11,6 +12,9 @@ const router = express.Router();
 // fetch all products in database
 // route methods and endpoints are defined in the controller
 router.get("/", getProducts);
+
+// fetches the product with the associated id
+router.get("/:id", getProductById);
 
 // create a new product
 router.post("/", createProduct);

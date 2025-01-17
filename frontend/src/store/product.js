@@ -3,6 +3,7 @@ import { create } from "zustand";
 // Zustand global store for managing product-related state
 export const useProductStore = create((setter) => ({
   products: [],
+  product: null,
   setProducts: (products) => setter({ products }),
 
   createProduct: async (newProduct) => {
@@ -29,6 +30,13 @@ export const useProductStore = create((setter) => ({
     const response = await fetch("/api/products");
     const data = await response.json();
     setter({ products: data.data });
+    console.log("fetched success");
+  },
+
+  fetchProductById: async (productId) => {
+    const response = await fetch(`/api/products/${productId}`);
+    const data = await response.json();
+    setter({ product: data.data });
   },
 
   deleteProduct: async (productId) => {
