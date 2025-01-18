@@ -75,11 +75,18 @@ export const useProductStore = create((setter) => ({
 
     // state update; map over the products array and update the product with the matching ID
     // this updates the ui immediately
-    setter((state) => ({
-      products: state.products.map(
-        (product) => (product._id === productId ? data.data : product) // make sure correct field (data.data) is being accessed from the backend
-      ),
-    }));
+    // setter((state) => ({
+    //   products: state.products.map(
+    //     (product) => (product._id === productId ? data.data : product) // make sure correct field (data.data) is being accessed from the backend
+    //   ),
+    // }));
+    setter((state) => {
+      if (state.product._id === productId) {
+        return { product: data.data };
+      }
+      return state;
+    });
+
     return { success: true, message: data.message };
   },
 }));
