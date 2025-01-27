@@ -35,23 +35,7 @@ const HomePage = () => {
       overflow={"hidden"}
       position={"relative"}
     >
-      {/* Gradient Blob Background */}
-      {/* <div
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "400px",
-          height: "400px",
-          background: "linear-gradient(45deg,rgb(9, 185, 9), #86d3a2)",
-          borderRadius: "50%",
-          filter: "blur(8rem)",
-          opacity: 0.5,
-          zIndex: -1,
-        }}
-      /> */}
-
+      {/* Background gradient */}
       <Box
         position="absolute"
         top="50%"
@@ -59,7 +43,11 @@ const HomePage = () => {
         transform="translate(-50%, -50%)"
         width="200px"
         height="200px"
-        background="linear-gradient(45deg, rgb(9, 185, 9), #86d3a2)"
+        background={
+          colorMode === "light"
+            ? "linear-gradient(45deg, rgb(0, 123, 255), #1e3a8a)"
+            : "linear-gradient(45deg, rgb(9, 185, 9), #86d3a2)"
+        }
         borderRadius="50%"
         filter="blur(8rem)"
         opacity={0.4}

@@ -39,7 +39,9 @@ const ProductsPage = () => {
 
         <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={7} width={"full"}>
           {products.map((product) => (
-            <ProductCard key={product._id} product={product} />
+            <Link key={product._id} to={`/products/${product._id}`}>
+              <ProductCard key={product._id} product={product} />
+            </Link>
           ))}
         </SimpleGrid>
 

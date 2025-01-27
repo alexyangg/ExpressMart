@@ -3,6 +3,7 @@ import { create } from "zustand";
 // Zustand global store for managing product-related state
 export const useProductStore = create((setter) => ({
   products: [],
+  product: null,
   setProducts: (products) => setter({ products }),
 
   createProduct: async (newProduct) => {
@@ -29,6 +30,13 @@ export const useProductStore = create((setter) => ({
     const response = await fetch("/api/products");
     const data = await response.json();
     setter({ products: data.data });
+    console.log("fetched success");
+  },
+
+  fetchProductById: async (productId) => {
+    const response = await fetch(`/api/products/${productId}`);
+    const data = await response.json();
+    setter({ product: data.data });
   },
 
   deleteProduct: async (productId) => {
@@ -67,11 +75,18 @@ export const useProductStore = create((setter) => ({
 
     // state update; map over the products array and update the product with the matching ID
     // this updates the ui immediately
-    setter((state) => ({
-      products: state.products.map(
-        (product) => (product._id === productId ? data.data : product) // make sure correct field (data.data) is being accessed from the backend
-      ),
-    }));
+    // setter((state) => ({
+    //   products: state.products.map(
+    //     (product) => (product._id === productId ? data.data : product) // make sure correct field (data.data) is being accessed from the backend
+    //   ),
+    // }));
+    setter((state) => {
+      if (state.product._id === productId) {
+        return { product: data.data };
+      }
+      return state;
+    });
+
     return { success: true, message: data.message };
   },
 }));
