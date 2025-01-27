@@ -10,7 +10,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { useProductStore } from "@/store/product";
 import { Toaster, toaster } from "@/components/ui/toaster";
@@ -28,13 +28,14 @@ import {
 
 const ProductDetails = () => {
   const { productId } = useParams();
-  console.log(productId);
+  console.log("Current productId: ", productId);
 
   const { updateProduct, deleteProduct, fetchProductById, product } =
     useProductStore(); // destructure the fetchProductById function and product from the useProductStore hook
   const [updatedProduct, setUpdatedProduct] = useState(null); // useState initial value is the product passed as a prop,
   // but we need to ensure the updatedProduct is initialized only after product is fetched and defined
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -49,22 +50,20 @@ const ProductDetails = () => {
       }
     };
 
-    const fetchUpdatedProduct = async () => {
-      if (product) {
-        setUpdatedProduct(product);
-      }
-    };
+    fetchProduct();
+  }, [productId]); // remove `product` from the dependencies array of the fetch useEffect to prevent unnecessary re-fetches
 
-    if (!product) fetchProduct();
-    fetchUpdatedProduct();
-    // TODO: Fix product details not loading after going to HomePage and back to ProductDetails page.
-  }, [productId, product]); // dependency array ensures effect runs when fetchProductById changes; prevents infinite loop
+  // console.log("product", product);
 
-  console.log("product", product);
+  useEffect(() => {
+    if (product) {
+      setUpdatedProduct(product);
+    }
+  }, [product]);
 
   const handleUpdateProduct = async (productId, updatedProduct) => {
     const { success, message } = await updateProduct(productId, updatedProduct);
-    console.log("edited");
+    console.log("edited product");
     if (success) {
       // await fetchProductById(productId);
       toaster.create({
@@ -88,10 +87,14 @@ const ProductDetails = () => {
     if (success) {
       toaster.create({
         title: "Success",
-        description: message,
+        description:
+          "Product deleted successfully!\nRedirecting you to the products page...",
         type: "success",
-        duration: 5000,
+        duration: 3000,
       });
+      setTimeout(() => {
+        navigate("/products");
+      }, 3000);
     } else {
       toaster.create({
         title: "Error",
@@ -180,7 +183,8 @@ const ProductDetails = () => {
               hour12: true,
             })}
           </Text>
-          <Box paddingBottom={4} paddingLeft={4} paddingRight={4}>
+
+          <Box paddingTop={4}>
             <HStack gap={2}>
               {/* Edit button that opens the edit dialog */}
               <DialogRoot>
@@ -304,7 +308,6 @@ const ProductDetails = () => {
           </Box>
         </VStack>
       </HStack>
-      {productId}
     </Container>
   );
 };
