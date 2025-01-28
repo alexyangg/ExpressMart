@@ -10,6 +10,8 @@ import CreatePage from "./pages/CreatePage";
 import ProductsPage from "./pages/ProductsPage";
 import { useColorModeValue } from "./components/ui/color-mode";
 import ProductDetails from "./pages/ProductDetails";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path="/products" element={<ProductsPage />} />
         <Route path="products/:productId" element={<ProductDetails />} />
         <Route path="/create" element={<CreatePage />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Box>
   );

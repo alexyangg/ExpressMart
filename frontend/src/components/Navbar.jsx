@@ -39,13 +39,18 @@ const Navbar = () => {
         <HStack alignItems={"center"} marginLeft={{ base: 0, sm: 4 }}>
           <Link to={"products"}>
             <Button>
-              <FaShop fontSize={20} />
+              {/* <FaShop fontSize={20} /> */}
+              Products
             </Button>
           </Link>
           <Link to={"create"}>
-            <Button>
-              <FaPlusSquare fontSize={20} />
+            <Button width={20}>
+              {/* <FaPlusSquare fontSize={20} /> */}
+              Create
             </Button>
+          </Link>
+          <Link to={"login"}>
+            <Button>Login / Register</Button>
           </Link>
           <Button onClick={toggleColorMode}>
             {colorMode === "light" ? <IoMoon /> : <LuSun />}
