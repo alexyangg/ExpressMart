@@ -18,11 +18,17 @@ const Signup = () => {
   const { signup } = useAuthStore();
   const navigate = useNavigate();
 
+  const isPasswordMatch = password === confirmPassword && password.length > 0;
+
   const handleSignup = async () => {
     setAttemptedNameSubmit(true);
     setAttemptedEmailSubmit(true);
     setAttemptedPasswordSubmit(true);
     setAttemptedConfirmPasswordSubmit(true);
+
+    if (!isPasswordMatch) {
+      return;
+    }
 
     const result = await signup({
       name: name.trim(),
