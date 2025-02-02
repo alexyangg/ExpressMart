@@ -1,26 +1,33 @@
 import { Box, Button, Heading, Input, Text, VStack } from "@chakra-ui/react";
 import { Field } from "@/components/ui/field";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useColorModeValue } from "@/components/ui/color-mode";
+import { useAuthStore } from "@/store/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [attemptedEmailSubmit, setAttemptedEmailSubmit] = useState(false);
   const [attemptedPasswordSubmit, setAttemptedPasswordSubmit] = useState(false);
+  const login = useAuthStore((state) => state.login);
+  const navigate = useNavigate();
+  // const [credentials, setCredentials] = useState({
+  //   email: "",
+  //   password: "",
+  // });
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setAttemptedEmailSubmit(true);
     setAttemptedPasswordSubmit(true);
-    console.log(attemptedEmailSubmit);
-    console.log(attemptedPasswordSubmit);
 
-    if (email.trim() && password.trim()) {
-      console.log("Form submitted: ", {
-        email: email.trim(),
-        password: password.trim(),
-      });
+    const result = await login({
+      email: email.trim(),
+      password: password.trim(),
+    });
+
+    if (result.success) {
+      navigate("/products");
     } else {
       console.log("Form has errors");
     }

@@ -1,29 +1,37 @@
 import { Box, Button, Heading, Input, Text, VStack } from "@chakra-ui/react";
 import { Field } from "@/components/ui/field";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useColorModeValue } from "@/components/ui/color-mode";
+import { useAuthStore } from "@/store/auth";
 
 const Signup = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [attemptedNameSubmit, setAttemptedNameSubmit] = useState(false);
   const [attemptedEmailSubmit, setAttemptedEmailSubmit] = useState(false);
   const [attemptedPasswordSubmit, setAttemptedPasswordSubmit] = useState(false);
   const [attemptedConfirmPasswordSubmit, setAttemptedConfirmPasswordSubmit] =
     useState(false);
+  const { signup } = useAuthStore();
+  const navigate = useNavigate();
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
+    setAttemptedNameSubmit(true);
     setAttemptedEmailSubmit(true);
     setAttemptedPasswordSubmit(true);
     setAttemptedConfirmPasswordSubmit(true);
 
-    if (email.trim() && password.trim() && password === confirmPassword) {
-      console.log("Signup successful: ", {
-        email: email.trim(),
-        password: password.trim(),
-      });
-      // TODO: add backend api to register new user
+    const result = await signup({
+      name: name.trim(),
+      email: email.trim(),
+      password: password.trim(),
+    });
+
+    if (result.success) {
+      navigate("/products");
     } else {
       console.log("Form has errors");
     }
@@ -48,6 +56,22 @@ const Signup = () => {
         </Heading>
 
         <VStack align={"stretch"}>
+          <Field
+            label="Name"
+            invalid={attemptedNameSubmit && !name.trim()}
+            errorText="Please enter your name"
+            required
+          >
+            <Input
+              placeholder="what should we call you?"
+              onChange={(e) => {
+                setName(e.target.value);
+                setAttemptedNameSubmit(false);
+                console.log(attemptedNameSubmit);
+              }}
+            ></Input>
+          </Field>
+
           <Field
             label="Email"
             invalid={attemptedEmailSubmit && !email.trim()}
