@@ -7,6 +7,7 @@ import { IoMoon } from "react-icons/io5";
 import { LuSun } from "react-icons/lu";
 import { FaShop } from "react-icons/fa6";
 import { useAuthStore } from "@/store/auth";
+import AccountMenu from "./AccountMenu";
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -59,7 +60,7 @@ const Navbar = () => {
             </Button>
           </Link>
           {isAuthenticated ? (
-            <Button onClick={handleLogout}>Logout</Button>
+            <AccountMenu />
           ) : (
             <Link to={"login"}>
               <Button>Login / Signup</Button>
