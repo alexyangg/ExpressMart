@@ -12,10 +12,6 @@ const Login = () => {
   const [attemptedPasswordSubmit, setAttemptedPasswordSubmit] = useState(false);
   const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
-  // const [credentials, setCredentials] = useState({
-  //   email: "",
-  //   password: "",
-  // });
 
   const handleLogin = async () => {
     setAttemptedEmailSubmit(true);
