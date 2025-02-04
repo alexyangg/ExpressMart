@@ -10,6 +10,7 @@ import ProductDetails from "./pages/ProductDetails";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import Signup from "./pages/Signup";
+import Error from "./pages/Error";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Profile from "./pages/Profile";
 import Cart from "./pages/Cart";
@@ -35,6 +36,9 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
+
+        {/* Catch-all route for invalid URLs */}
+        <Route path="*" element={<Error />}></Route>
 
         {/* Protected Routes */}
         <Route
