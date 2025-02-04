@@ -1,14 +1,24 @@
 import { Box, Button, Container, Flex, HStack, Text } from "@chakra-ui/react";
 import React from "react";
 import { FaPlusSquare } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useColorMode } from "./ui/color-mode";
 import { IoMoon } from "react-icons/io5";
 import { LuSun } from "react-icons/lu";
 import { FaShop } from "react-icons/fa6";
+import { useAuthStore } from "@/store/auth";
+import AccountMenu from "./AccountMenu";
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const logout = useAuthStore((state) => state.logout);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/logout");
+  };
 
   return (
     <Container maxWidth={"1140px"} paddingX={4} paddingY={4}>
@@ -39,14 +49,24 @@ const Navbar = () => {
         <HStack alignItems={"center"} marginLeft={{ base: 0, sm: 4 }}>
           <Link to={"products"}>
             <Button>
-              <FaShop fontSize={20} />
+              {/* <FaShop fontSize={20} /> */}
+              Products
             </Button>
           </Link>
           <Link to={"create"}>
-            <Button>
-              <FaPlusSquare fontSize={20} />
+            <Button width={20}>
+              {/* <FaPlusSquare fontSize={20} /> */}
+              Create
             </Button>
           </Link>
+          {isAuthenticated ? (
+            <AccountMenu />
+          ) : (
+            <Link to={"login"}>
+              <Button>Login / Signup</Button>
+            </Link>
+          )}
+
           <Button onClick={toggleColorMode}>
             {colorMode === "light" ? <IoMoon /> : <LuSun />}
           </Button>
