@@ -62,9 +62,14 @@ const Navbar = () => {
           {isAuthenticated ? (
             <AccountMenu />
           ) : (
-            <Link to={"login"}>
-              <Button>Login / Signup</Button>
-            </Link>
+            <HStack>
+              <Link to={"login"}>
+                <Button>Login</Button>
+              </Link>
+              <Link to={"signup"}>
+                <Button>Signup</Button>
+              </Link>
+            </HStack>
           )}
 
           <Button onClick={toggleColorMode}>
