@@ -10,12 +10,15 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [attemptedEmailSubmit, setAttemptedEmailSubmit] = useState(false);
   const [attemptedPasswordSubmit, setAttemptedPasswordSubmit] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     setAttemptedEmailSubmit(true);
     setAttemptedPasswordSubmit(true);
+    // setErrorMessage("");
 
     const result = await login({
       email: email.trim(),
@@ -26,6 +29,7 @@ const Login = () => {
       navigate("/products");
     } else {
       console.log("Form has errors");
+      setErrorMessage(result.message || "Invalid email or password.");
     }
   };
 
@@ -80,6 +84,20 @@ const Login = () => {
               }}
             ></Input>
           </Field>
+
+          {email.trim() &&
+            password.trim() &&
+            errorMessage &&
+            attemptedEmailSubmit &&
+            attemptedPasswordSubmit && (
+              <Text
+                color={"var(--chakra-colors-fg-error)"}
+                fontSize={"xs"}
+                fontWeight={"medium"}
+              >
+                {errorMessage}
+              </Text>
+            )}
 
           <Box textAlign={"right"} fontSize={15}>
             <Link
