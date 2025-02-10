@@ -12,8 +12,11 @@ const Login = () => {
   const [attemptedPasswordSubmit, setAttemptedPasswordSubmit] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
+  const login = useAuthStore((state) => state.login);
+  const isSessionExpired = new URLSearchParams(location.search).get(
+    "sessionExpired"
+  );
 
   const handleLogin = async () => {
     setAttemptedEmailSubmit(true);
@@ -41,15 +44,29 @@ const Login = () => {
       minH={"75vh"}
     >
       <Box
-        padding={40}
+        padding={30}
         background={useColorModeValue("white", "gray.900")}
         borderRadius={10}
         boxShadow={"md"}
-        height={"700px"}
+        // height={"700px"}
+        maxHeight={"60vh"}
+        maxWidth={"50vh"}
       >
-        <Heading textAlign={"center"} fontSize={"xx-large"} marginBottom={10}>
+        <Heading textAlign={"center"} fontSize={"xx-large"} marginBottom={5}>
           Welcome Back!
         </Heading>
+
+        {isSessionExpired && (
+          <Text
+            color={"var(--chakra-colors-fg-error)"}
+            fontSize={"md"}
+            fontWeight={"medium"}
+            textAlign={"center"}
+            marginBottom={5}
+          >
+            Your session has expired. Please login again!
+          </Text>
+        )}
 
         <VStack align={"stretch"}>
           <Field
@@ -110,7 +127,7 @@ const Login = () => {
 
           <Button onClick={handleLogin}>Login</Button>
 
-          <Text>
+          <Text textAlign={"center"}>
             Don't have an account? Signup{" "}
             <Link
               to={"/signup"}
